@@ -1,0 +1,35 @@
+{
+    "name": "행신고등학교 디지털 학생증",
+    "short_name": "행신고 학생증",
+    "display": "standalone",
+    "orientation": "portrait",
+    "theme_color": "#5991CC",
+    "background_color": "#5991CC",
+    "start_url": "/",
+    "description": "디지털로 만나다, 행신고 학생증",
+    "prefer_related_applications": true,
+    "related_applications": [
+      {
+        "platform": "play",
+        "id": "com.codIT.dsi"
+      }
+    ],
+    "icons": [
+      {
+        "src": "/icons/Android/Icon-192.png",
+        "sizes": "192x192",
+        "type": "image/png",
+        "purpose": "any maskable"
+      },
+      {
+        "src": "/icons/iOS/Icon-256.png",
+        "sizes": "256x256",
+        "type": "image/png"
+      },
+      {
+        "src": "/icons/Android/Icon-512.png",
+        "sizes": "512x512",
+        "type": "image/png"
+      }
+    ]
+  }
