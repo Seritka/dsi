@@ -2,7 +2,7 @@ import Document, { Html, Head, Main, NextScript, DocumentContext } from 'next/do
 
 const APP_NAME = '행신고등학교 디지털 학생증'
 const APP_DESCRIPTION = '디지털로 만나다, 행신고 학생증'
-const APP_DOMAIN = 'https://dsi.jungeon.cc/'
+const APP_DOMAIN = 'http://localhost:3000'
 
 export default class MyDocument extends Document {
   static async getInitialProps(ctx: DocumentContext) {
@@ -24,6 +24,7 @@ export default class MyDocument extends Document {
           <meta name='mobile-web-app-capable' content='yes' />
           <meta name='theme-color' content='#5991CC' />
           {/* TIP: set viewport head meta tag in _app.js, otherwise it will show a warning */}
+          <meta name='viewport' content='minimum-scale=1, initial-scale=1, width=device-width, shrink-to-fit=no, viewport-fit=cover' />
 
           <link rel='apple-touch-icon' href='/icons/touch-icon-iphone.png' />
           <link rel='apple-touch-icon' sizes='152x152' href='/icons/iOS/touch-icon-ipad.png' />

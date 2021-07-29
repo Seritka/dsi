@@ -52,8 +52,8 @@ export default function Home() {
                 textOverflow="ellipsis"
                 textAlign="center">
                   <br/>
-                  <Text fontSize="3xl">김XX</Text>
-                  <Text fontSize="xl">30100</Text>
+                  <Text fontSize="3xl">김택우</Text>
+                  <Text fontSize="xl">10505</Text>
                   <br/>
                   <Text fontSize="xs" fontWeight="600">
                     유효기간:&nbsp;{String(date.getFullYear()).slice(0, 2) + code.slice(1, 3)}~{String(date.getFullYear()).slice(0, 2) + (Number(code.slice(1, 3))+3)}
@@ -72,7 +72,7 @@ export default function Home() {
                     color="#FF6767"
                     as="mark"
                     textAlign="center">
-                    {date.getMonth()+1}월 {date.getDate()}일 {Number(date.getHours()) > 12 ? "오후" : "오전"} {Number(date.getHours()) > 12  ? (date.getHours()-12).toFixed() : date.getHours()}시  {date.getMinutes() === 0 ? "" : date.getMinutes() + "분" } {date.getSeconds() === 0 ? "" :  date.getSeconds() + "초"}
+                    {date.getMonth()+1}월 {date.getDate()}일 {Number(date.getHours()) > 12 ? "오후" : "오전"} {Number(date.getHours()) >= 12 ? (date.getHours()-12).toFixed() : date.getHours()}시  {date.getMinutes()}분 {date.getSeconds()}초
                   </Text>
                   <br/>
                   <br/>
