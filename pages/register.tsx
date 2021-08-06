@@ -67,9 +67,10 @@ export default function Register() {
                         secureStorage.setItem('id', id)
                         secureStorage.setItem('name', name)
                         router.push('barcode')
+                    } else {
+                        alert('이름과 학번으로 장난치면 안돼요, 여러분')
                     }
-                    // alert('이름과 학번으로 장난치면 안돼요, 여러분')
-                }}>바코드 등록 하려 가기</Button>
+                }}>바코드 등록 하러 가기</Button>
             </Flex>
             <FooterComponent isCode={false}/>
           </>
