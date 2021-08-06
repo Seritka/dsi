@@ -1,6 +1,6 @@
 import React, { useEffect, useMemo } from 'react'
 import { useRouter } from 'next/router'
-import { Button, Flex, Heading, Badge, Text } from '@chakra-ui/react'
+import { Button, Flex, Heading, Badge, Text, Box } from '@chakra-ui/react'
 import { secureStorage } from '@utils/secureStorage'
 import styles from '@styles/Home.module.css'
 import dynamic from 'next/dynamic'
@@ -14,16 +14,20 @@ export default function Home() {
   const [code, setCode] = React.useState<string | null>(null)
   const [qr, setQr] = React.useState<string>()
   const [date, setDate] = React.useState<Date>(new Date())
+  const [name, setName] = React.useState<string>('')
+  const [id, setID] = React.useState<string>('')
 
   useEffect(() => {
     //devtools 차단
+    secureStorage.getItem('name').then(name => setName(name))
+    secureStorage.getItem('id').then(id => setID(id))
     secureStorage.getItem('code').then((tempCode: string) => setCode(tempCode === undefined || tempCode == ''  ? null : tempCode))
 
     if (code === null) return
     const canvas = document.createElement("canvas")
     JsBarcode(canvas, code, { height: 50, displayValue: false, background: '#FFFFFF' })
     setQr(canvas.toDataURL('image/png'))
-  }, [code, qr])
+  }, [code, router, qr])
 
   useMemo(() => {
     let id = setInterval(() => setDate(new Date()), 1000)
@@ -52,8 +56,8 @@ export default function Home() {
                 textOverflow="ellipsis"
                 textAlign="center">
                   <br/>
-                  <Text fontSize="3xl">김XX</Text>
-                  <Text fontSize="xl">30100</Text>
+                  <Text fontSize="4xl">{name}</Text>
+                  <Text fontSize="2xl">{id}</Text>
                   <br/>
                   <Text fontSize="xs" fontWeight="600">
                     유효기간:&nbsp;{String(date.getFullYear()).slice(0, 2) + code.slice(1, 3)}~{String(date.getFullYear()).slice(0, 2) + (Number(code.slice(1, 3))+3)}
@@ -62,6 +66,7 @@ export default function Home() {
                     위 사람은 본교 학생임을 증명함.
                   </Text>
                   <br/>
+                  <Box margin="20px">
                   <Text fontSize="xs" textAlign="center" fontWeight="600" marginBottom="8px">유효성 증명</Text>
                   <Text fontSize="xs"
                     fontWeight="570"
@@ -74,7 +79,7 @@ export default function Home() {
                     textAlign="center">
                     {date.getMonth()+1}월 {date.getDate()}일 {Number(date.getHours()) > 12 ? "오후" : "오전"} {Number(date.getHours()) > 12  ? (date.getHours()-12).toFixed() : date.getHours()}시  {date.getMinutes() === 0 ? "" : date.getMinutes() + "분" } {date.getSeconds() === 0 ? "" :  date.getSeconds() + "초"}
                   </Text>
-                  <br/>
+                  </Box>
                   <br/>
                   <Text fontSize="xs" fontWeight="600" textAlign="center">학생증 바코드</Text>
                   {qr && <Image src={qr} width={200} height={70} alt="QR CODE" />}

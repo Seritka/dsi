@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react"
 import { useRouter } from 'next/router'
-import { Button, Flex, Heading, Text } from "@chakra-ui/react"
-import dynamic from "next/dynamic"
+import { Button, Flex, Heading, Text, Input } from "@chakra-ui/react"
 import { secureStorage } from '@utils/secureStorage'
+import dynamic from 'next/dynamic'
 import styles from '@styles/Home.module.css'
 
 const FooterComponent = dynamic(() => import('@components/Footer'))
@@ -10,33 +10,66 @@ const FooterComponent = dynamic(() => import('@components/Footer'))
 export default function Register() {
     const [isPrivacy, setPrivacy] = useState<Boolean>(false)
     const [code, setCode] = useState<string>()
-    const [name, setName] = useState<string>()
-    const [id, setID] = useState<string>()
+    const [name, setName] = useState<string>('')
+    const [id, setID] = useState<string>('')
     const [_, setLoading] = useState<boolean>(false)
+    const [isDisabled, setDisabled] = useState<boolean>(true)
     const router = useRouter()
 
+
     useEffect(() => {
-        secureStorage.getItem('code').then((value: string) => setCode(value))
-        secureStorage.getItem('id').then((value: string) => setID(value))
-        secureStorage.getItem('name').then((value: string) => setName(value))
+        secureStorage.getItem('code').then((value: string) => value === undefined ? undefined : setCode(value))
+        secureStorage.getItem('id').then((value: string) => value === undefined ?  undefined : setID(value))
+        secureStorage.getItem('name').then((value: string) => value === undefined ? undefined : setName(value))
 
         if (code !== '' && code !== undefined && code !== null &&
             name !== '' && name !== undefined && name !== null &&
             id !== '' && id !== undefined && id !== null) {
 
             router.push('/')
+        } else if (name !== '' && name !== undefined && name !== null &&
+            id !== '' && id !== undefined && id !== null) {
+            setDisabled(false)
+        } else {
+            setDisabled(true)
         }
-
         secureStorage.getItem('privacy').then((value: string) => setPrivacy(Boolean(value) ? true : false))
-        return () => setLoading(false)
-    }, [isPrivacy, code, router, name, id])
+        return () => setLoading(true)
+    }, [isPrivacy, code, router, name, id, setID, setName])
 
     if (isPrivacy) {
         //학년 이름 받기
         return (
             <>
             <Flex height="100vh" direction="column" alignItems="center" justifyContent="center" className={styles.background}>
-                <Button bgColor="white" color="#5991CC">바코드 등록 하려 가기</Button>
+                <Input
+                    width="54%"
+                    size="md"
+                    value={name || ''}
+                    type="text"
+                    variant="Outline"
+                    placeholder="본인의 이름을 입력하세요."
+                    margin="15px"
+                    onChange={(e) => setName(e.target.value)}
+                     />
+                <Input
+                    width="54%"
+                    size="md"
+                    value={id || ''}
+                    type="number"
+                    variant="Outline"
+                    onChange={(e) => setID(e.target.value)}
+                    placeholder="본인의 학번을 입력하세요."
+                    margin="15px"
+                    />
+                <Button bgColor="white" color="#5991CC" isDisabled={isDisabled} onClick={() => {
+                    if (String(id).length === 5 && (Number(String(id).substr(0, 1)) >= 1 && Number(String(id).substr(0, 1)) <= 3) && (name.length >= 2 && name.length <= 5)) {
+                        secureStorage.setItem('id', id)
+                        secureStorage.setItem('name', name)
+                        router.push('barcode')
+                    }
+                    // alert('이름과 학번으로 장난치면 안돼요, 여러분')
+                }}>바코드 등록 하려 가기</Button>
             </Flex>
             <FooterComponent isCode={false}/>
           </>

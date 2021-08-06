@@ -15,9 +15,10 @@ export default function Barcode() {
     const [id, setID] = useState<string>()
 
     useEffect(() => {
-        secureStorage.getItem('code').then((value: string) => setCode(value))
-        secureStorage.getItem('id').then((value: string) => setID(value))
-        secureStorage.getItem('name').then((value: string) => setName(value))
+        secureStorage.getItem('code').then((value: string) => value === undefined ? undefined : setCode(value))
+        secureStorage.getItem('id').then((value: string) => value === undefined ?  undefined : setID(value))
+        secureStorage.getItem('name').then((value: string) => value === undefined ? undefined : setName(value))
+
 
         if (code !== '' && code !== undefined && code !== null &&
             name !== '' && name !== undefined && name !== null &&
@@ -33,7 +34,7 @@ export default function Barcode() {
     <Flex height="100vh" direction="column" alignItems="center" justifyContent="center" className={styles.background}>
     <Heading size="h1" color="white">학생증 바코드 등록하기</Heading>
         <BarcodeScannerComponent
-            width={320}
+            width={260}
             height={240}
             delay={1}
             onUpdate={(error: unknown, result?: any) => {

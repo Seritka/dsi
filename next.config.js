@@ -2,6 +2,7 @@ const { createSecureHeaders } = require("next-secure-headers")
 const { ESBuildMinifyPlugin } = require('esbuild-loader')
 const withPWA = require("next-pwa")
 const withPlugins = require('next-compose-plugins')
+const tsconfig = require("./tsconfig.json")
 
 function UseEsbuildMinify(config, options) {
 	const terserIndex = config.optimization.minimizer.findIndex(minimizer => (minimizer.constructor.name === 'TerserPlugin'))
@@ -11,15 +12,6 @@ function UseEsbuildMinify(config, options) {
 			1,
 			new ESBuildMinifyPlugin(options),
 		)
-	}
-}
-
-function UseEsbuildLoader(config, options) {
-	const tsLoader = config.module.rules.find(rule => rule.test && rule.test.test('.ts'))
-
-	if (tsLoader) {
-		tsLoader.use.loader = 'esbuild-loader'
-		tsLoader.use.options = options
 	}
 }
 
@@ -57,11 +49,6 @@ module.exports = withPlugins(
 		);
 
 		UseEsbuildMinify(config)
-
-		UseEsbuildLoader(config, {
-			loader: 'tsx',
-			target: 'es2017',
-		})
 
 		return config
 	}
