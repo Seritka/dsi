@@ -95,7 +95,7 @@ export default function Home() {
       <Flex height="100vh" alignItems="center" justifyContent="center" className={styles.background}>
         <Flex direction="column" p={12} rounded={6}>
           <Heading mb={6} color="white">디지털 학생증</Heading>
-            <Button border="solid 1px white" borderRadius="18px" bg="#FFFFFF" color="#5991CC" mb={10} onClick={() => router.push("register") }>
+            <Button border="solid 1px white" borderRadius="18px" bg="#FFFFFF" color="#5991CC" mb={10} onClick={() => router.push("register") } isDisabled={code !== null}>
               등록하기
             </Button>
         </Flex>
