@@ -27,7 +27,7 @@ export default function Barcode() {
             }, function(result){
                 if (result.codeResult) {
                     if (!result.codeResult.code) return
-                    console.log("result", result.codeResult.code);
+                    //console.log("result", result.codeResult.code);
                     const code: string = result.codeResult.code
 
                     if (code.length !== 6) {
