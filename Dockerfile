@@ -14,7 +14,8 @@
 FROM node:lts as dependencies
 WORKDIR /dsi
 COPY package.json ./
-RUN npm i
+RUN npm i -g pnpm
+RUN pnpm i
 
 FROM node:lts as builder
 WORKDIR /dsi
