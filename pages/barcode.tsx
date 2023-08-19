@@ -49,7 +49,8 @@ export default function Barcode() {
                     }
 
                 } else {
-                    console.log("not detected");
+                    alert('바코드 인식이 안됩니다. 다시 제대로 된 사진을 올리세요.')
+                    router.push('/')
                 }
             });
         }
