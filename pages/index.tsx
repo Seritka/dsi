@@ -82,7 +82,7 @@ export default function Home() {
                   </Box>
                   <br/>
                   <Text fontSize="xs" fontWeight="600" textAlign="center">학생증 바코드</Text>
-                  {qr && <Image src={qr} width={200} height={70} alt="QR CODE" />}
+                  {qr && <Image src={qr} width={200} height={70} style={{ display: 'block', marginLeft: 'auto', marginRight: 'auto', width: '50%;' }} alt="QR CODE" />}
               </Badge>
             </Flex>
           </div>
